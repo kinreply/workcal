@@ -36,8 +36,8 @@ RS", br. 43/2001, 101/2007 i 92/2011):
 |---|---|
 | čl. 1 and 1a, state holidays | Nova godina Jan 1-2; Sretenje (Dan državnosti) Feb 15-16; Praznik rada May 1-2; Dan primirja Nov 11 |
 | čl. 2, religious holidays for all | prvi dan Božića Jan 7; Vaskrs from Good Friday to Easter Monday (Orthodox) |
-| čl. 3a, Sunday carry-over | a **state** holiday on a Sunday makes the first following working day off. Christmas and Easter do not carry. "First following working day" skips days already off: Jan 1 2023 (Sunday) moved to Tue Jan 3, past the Jan 2 holiday; May 2 2021 (Sunday) moved to Tue May 4, past Easter Monday. |
-| čl. 3, working holidays | Dan pobede (May 9) and the other working holidays are not days off and never carry |
+| čl. 3a, Sunday carry-over | a **state** holiday on a Sunday makes the first following working day off. This applies **only** to the state holidays (Nova godina, Sretenje, Praznik rada, Dan primirja), **not** to the religious ones in čl. 2: Božić on a Sunday (Jan 7 2018, Jan 7 2024) is not carried, and neither is any Easter day. "First following working day" skips days already off: Jan 1 2023 (Sunday) moved to Tue Jan 3, past the Jan 2 holiday; May 2 2021 (Sunday) moved to Tue May 4, past Easter Monday. |
+| čl. 3, working holidays | Dan pobede (May 9) is in the čl. 1a list of state holidays, but čl. 3 says state holidays are not worked "osim na Dan pobede koji se praznuje radno", so it is not a day off. Not carrying it when it falls on a Sunday (May 9 2021) is an **interpretation**: čl. 3a speaks of state holidays generally, but a holiday that is worked anyway gives no day off to move. |
 
 Sources: the law's text at
 paragraf.rs/propisi/zakon_o_drzavnim_i_drugim_praznicima_u_republici_srbiji.html

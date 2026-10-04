@@ -184,12 +184,16 @@ func OrthodoxEaster(year int) time.Time {
 //
 //   - čl. 1 and 1a, state holidays: Nova godina Jan 1-2, Sretenje (Dan
 //     državnosti) Feb 15-16, Praznik rada May 1-2, Dan primirja Nov 11.
-//     (Dan pobede, May 9, is also listed but čl. 3 makes it a working holiday.)
+//     Dan pobede (May 9) is also in the čl. 1a list of state holidays, but
+//     čl. 3 makes it a working one: state holidays are not worked "osim na
+//     Dan pobede koji se praznuje radno".
 //   - čl. 2, religious: prvi dan Božića Jan 7, and Vaskrs "počev od Velikog
 //     petka zaključno sa drugim danom Vaskrsa", Good Friday to Easter Monday.
 //   - čl. 3a: "Ako jedan od datuma kada se praznuju državni praznici Republike
-//     Srbije padne u nedelju, ne radi se prvog narednog radnog dana." Only the
-//     state holidays carry, so not Christmas and not Easter. "Prvi naredni
+//     Srbije padne u nedelju, ne radi se prvog narednog radnog dana." It applies
+//     ONLY to the state holidays (Nova godina, Sretenje, Praznik rada, Dan
+//     primirja), NOT to the religious ones in čl. 2: Božić on a Sunday (as in
+//     2018 and 2024) is not carried, and neither is any Easter day. "Prvi naredni
 //     radni dan" skips days that are already off: in 2023 Jan 1 was a Sunday,
 //     Jan 2 a holiday anyway, so Jan 3 (Tuesday) was off; in 2021 May 2 was a
 //     Sunday and May 3 Easter Monday, so May 4 was off. Both match the
@@ -204,8 +208,10 @@ func OrthodoxEaster(year int) time.Time {
 //     and unija.com/sr/koji-su-to-neradni-dani-za-prvomajske-i-vaskrsnje-praznike/
 //     (2021); the tests pin the holiday set for 2018 and 2021-2027 against them.
 //
-// Dan pobede (May 9) is a WORKING holiday: it never makes a day off and never
-// carries. Holidays of other faiths (Catholic Christmas, Bajram, Yom Kippur...)
+// Dan pobede (May 9) is a WORKING holiday (čl. 3): it never makes a day off.
+// Not carrying it when it falls on a Sunday (as in 2021) is an interpretation:
+// čl. 3a speaks of state holidays generally, but a holiday that is worked
+// anyway gives no day off to move. Holidays of other faiths (Catholic Christmas, Bajram, Yom Kippur...)
 // are days off only for employees of that faith (čl. 2) and are not in this
 // set.
 //
@@ -228,7 +234,8 @@ func SerbianHolidays(year int) []Date {
 	return out
 }
 
-// carries are the čl. 1/1a dates that čl. 3a moves off a Sunday.
+// carries are the non-working čl. 1/1a dates that čl. 3a moves off a Sunday.
+// Dan pobede is deliberately absent (see IsSerbianHoliday).
 var carries = []struct {
 	m time.Month
 	d int

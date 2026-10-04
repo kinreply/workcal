@@ -382,3 +382,53 @@ func TestAddWorkingDaysRejectsNonPositive(t *testing.T) {
 		mustPanic(t, "AddWorkingDays(n<1)", func() { AddWorkingDays(bg(2026, 9, 21, 10, 0), n, true) })
 	}
 }
+
+// The three carry-over rulings, each named, so a change to any one fails by
+// name. Weekdays are asserted too, so a wrong premise fails loudly rather than
+// passing for the wrong reason.
+
+func TestBozicOnSundayIsNotCarried(t *testing.T) {
+	// Jan 7 2018 is a Sunday. Božić is a čl. 2 religious holiday; čl. 3a
+	// carries state holidays only, so Mon Jan 8 is a working day.
+	if wd := (Date{2018, 1, 7}).Weekday(); wd != time.Sunday {
+		t.Fatalf("premise: 2018-01-07 is %s", wd)
+	}
+	if !IsSerbianHoliday(bg(2018, 1, 7, 12, 0)) {
+		t.Error("2018-01-07 Božić is not a holiday")
+	}
+	if IsSerbianHoliday(bg(2018, 1, 8, 12, 0)) {
+		t.Error("2018-01-08 is a holiday: Božić was carried")
+	}
+	same(t, "one working day from Sat Jan 6 2018", AddWorkingDays(bg(2018, 1, 6, 10, 0), 1, true), eod(2018, 1, 8))
+}
+
+func TestNewYearOnSundayCarriesToTuesday(t *testing.T) {
+	// Jan 1 2023 is a Sunday. čl. 3a: the first following working day is off;
+	// Mon Jan 2 is already a holiday, so that is Tue Jan 3. Wed Jan 4 works.
+	if wd := (Date{2023, 1, 1}).Weekday(); wd != time.Sunday {
+		t.Fatalf("premise: 2023-01-01 is %s", wd)
+	}
+	for _, c := range []struct {
+		d    int
+		want bool
+	}{{1, true}, {2, true}, {3, true}, {4, false}} {
+		if got := IsSerbianHoliday(bg(2023, 1, c.d, 12, 0)); got != c.want {
+			t.Errorf("2023-01-%02d: got %v, want %v", c.d, got, c.want)
+		}
+	}
+}
+
+func TestDanPobedeOnSundayIsNotAHolidayAndNotCarried(t *testing.T) {
+	// May 9 2021 is a Sunday. Dan pobede is worked (čl. 3), so it is not a
+	// non-working day and, by interpretation, nothing carries to Mon May 10.
+	if wd := (Date{2021, 5, 9}).Weekday(); wd != time.Sunday {
+		t.Fatalf("premise: 2021-05-09 is %s", wd)
+	}
+	if IsSerbianHoliday(bg(2021, 5, 9, 12, 0)) {
+		t.Error("2021-05-09 Dan pobede is a non-working holiday")
+	}
+	if IsSerbianHoliday(bg(2021, 5, 10, 12, 0)) {
+		t.Error("2021-05-10 is a holiday: Dan pobede was carried")
+	}
+	same(t, "one working day from Fri May 7 2021", AddWorkingDays(bg(2021, 5, 7, 10, 0), 1, true), eod(2021, 5, 10))
+}
